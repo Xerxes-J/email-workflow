@@ -1,0 +1,11 @@
+img {
+  height: auto;
+  -ms-interpolation-mode: bicubic;
+  max-width: 100%;
+  // and for IE 8
+  width: auto\9;
+}
+
+@media \0screen {
+  img {width: auto;}
+}

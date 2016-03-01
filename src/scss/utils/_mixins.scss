@@ -1,0 +1,70 @@
+// REM font size with pixel fallback
+@function calculate-rem($size) {
+  $rem-size: $size / 16px;
+  @return $rem-size * 1rem;
+}
+
+@mixin font-size($size) {
+  font-size: $size;
+  font-size: calculate-rem($size);
+}
+
+// Opacity
+@mixin opacity($opacity) {
+  opacity: $opacity;
+  $opacity-ie: $opacity * 100;
+  filter: alpha(opacity = $opacity-ie);
+}
+
+// Font Anti-aliasing
+// Values: antialiased, none, subpixel-antialiased
+@mixin font-smoothing($value: antialiased) {
+  @if $value == antialiased {
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
+  @else {
+    -webkit-font-smoothing: subpixel-antialiased;
+    -moz-osx-font-smoothing: auto;
+  }
+}
+
+// Rotate
+@mixin rotate($degrees) {
+  transform: rotate(#{$degrees}deg);
+  filter: progid:DXImageTransform.Microsoft.Matrix(sizingMethod='auto expand', M11=#{cos($degrees)}, M12=-#{sin($degrees)}, M21=#{sin($degrees)}, M22=#{cos($degrees)});
+  -ms-filter: "progid:DXImageTransform.Microsoft.Matrix(sizingMethod='auto expand', M11=#{cos($degrees)}, M12=-#{sin($degrees)}, M21=#{sin($degrees)}, M22=#{cos($degrees)})";
+  zoom: 1;
+}
+
+// Smart Underline
+@mixin smart-underline($background, $text, $selection, $position) {
+    text-shadow: 2px 0 $background, 1px 0 $background, -1px 0 $background, -2px 0 $background;
+    text-decoration: none;
+    background-image: linear-gradient($selection, $selection);
+    background-size: 2px 2px;
+    background-repeat: repeat-x;
+    background-position: 0 $position;
+    color: $text;
+    display: inline-block;
+    font-weight: 600;
+    text-decoration: none;
+
+    &::before,
+    &::after,
+    *,
+    *::before,
+    *::after {
+      text-shadow: none;
+    }
+
+    &:visited {
+      color: inherit;
+    }
+
+    &:hover {
+      background: none;
+		}
+}
+
+// Footer
